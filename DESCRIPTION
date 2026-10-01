@@ -1,0 +1,23 @@
+Package: colorkit
+Title: Tools for Color Display, Conversion, and Sampling
+Version: 0.0.0.9000
+Authors@R:
+    person("Daniel", "Muenz", , "dmuenz@gmail.com", role = c("aut", "cre"))
+Description: Utility functions for working with colors in R. Includes
+    tools for converting colors to hexadecimal strings, selecting
+    contrasting foreground colors for a given background, randomly
+    sampling colors, and displaying colors visually as plotted cells or
+    printed console output.
+License: MIT + file LICENSE
+Depends:
+    R (>= 4.1.0)
+Imports:
+    cli,
+    farver,
+    gtable,
+    rlang
+Suggests:
+    RColorBrewer
+Config/roxygen2/version: 8.1.0
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
