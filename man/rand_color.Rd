@@ -7,18 +7,41 @@
 rand_color(n = 1, hex = 0.5, alpha = FALSE)
 }
 \arguments{
-\item{n}{The number of colors to sample}
+\item{n}{The number of colors to sample.}
 
 \item{hex}{Either \code{TRUE} (meaning sample only hex strings), \code{FALSE} (meaning
 sample only color names), or a real number from 0 to 1 indicating the
-proportion of colors that should be hex strings (rather than color names)}
+proportion of colors that should be hex strings (rather than color names).}
 
 \item{alpha}{\code{TRUE}/\code{FALSE} for whether hex strings should have a random
-alpha value}
+alpha value.}
 }
 \value{
-A character vector of length \code{n}
+A character vector of length \code{n}.
 }
 \description{
-Random sampling of colors
+When \code{hex} is \code{TRUE} or \code{1}, \code{rand_color()} generates a random sample
+uniformly distributed over the RGB(A) color space. When \code{hex} is \code{FALSE} or
+\code{0}, \code{rand_color()} generates a random sample uniformly distributed over
+distinct R color names. When \code{hex} is between 0 and 1, the sampling
+distribution is a mixture of those two uniform distributions.
+}
+\examples{
+# random color vector
+v <- rand_color(5)
+v
+print_color(v)
+
+# random color matrix
+m <- rand_color(6) |> matrix(ncol = 3)
+m
+print_color(m)
+
+# sample hex strings, color names, or a mixture
+rand_color(8, hex = TRUE)
+rand_color(8, hex = FALSE)
+rand_color(8, hex = 0.5)
+}
+\seealso{
+\code{\link[=plot_color]{plot_color()}} and \code{\link[=print_color]{print_color()}} for visualizing the colors.
 }
