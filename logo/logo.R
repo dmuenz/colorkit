@@ -1,7 +1,10 @@
 hex_logo <- function(
   w = 700,
   h = 700,
+  label_cex = 1,
   margin = 0.02,
+  hex_x = 0.5,
+  hex_y = 0.5,
   hex_w = 1,
   hex_h = 1,
   hex_border = "black",
@@ -18,15 +21,26 @@ hex_logo <- function(
   raster <- image_warp(
     draw_expr = {
       mat <- matrix(rainbow(6 * 6), nrow = 6, byrow = TRUE)
-      colorkit::plot_color(mat, index = FALSE)
+      colorkit::plot_color(mat, index = FALSE, cex_label = label_cex)
 
       shadowtext::grid.shadowtext(
         label = "colorkit",
         x = text_x,
         y = text_y,
-        gp = grid::gpar(col = "white", cex = text_cex, fontfamily = "Aller_Rg"),
+        gp = grid::gpar(col = "white", cex = text_cex, fontfamily = "Aller"),
         bg.colour = text_border,
         bg.r = 0.05
+      )
+
+      # Draw a left-to-right gradient
+      grid::grid.rect(
+        width = 1,
+        height = 1,
+        gp = grid::gpar(fill = grid::linearGradient(
+          colours = c("#FFFFFF00", "#00000060"),
+          y1 = 0.5,
+          y2 = 0.5
+        ))
       )
     },
     width = w,
@@ -45,10 +59,18 @@ hex_logo <- function(
   grid::grid.newpage()
   grid::grid.raster(
     border_raster,
+    x = hex_x,
+    y = hex_y,
     width = hex_w * (1 + hex_border_w),
     height = hex_h * (1 + hex_border_w)
   )
-  grid::grid.raster(raster, width = hex_w, height = hex_h)
+  grid::grid.raster(
+    raster,
+    x = hex_x,
+    y = hex_y,
+    width = hex_w,
+    height = hex_h
+  )
 }
 
 image_warp <- function(draw_expr, width, height,
@@ -138,32 +160,33 @@ dev.off.all <- function() {
   while(!is.null(dev.list())) dev.off()
 }
 
+
 dev.off.all()
-ragg::agg_png(width = 240 * 2, height = 278 * 2,
+ragg::agg_png(width = 240 * 2, height = 278 * 2, res = 150,
               filename = "logo/logo.png", background = "transparent")
 hex_logo(
   w = 700,
   h = 675,
+  label_cex = 1.2,
   margin = -0.1,
-  hex_w = 1.02,
-  hex_h = 1.26,
+  hex_x = 0.495,
+  hex_w = 1.01,
+  hex_h = 1.53,
   hex_border = "black",
   hex_border_w = 0.04,
   text_x = 0.45,
   text_y = 0.52,
-  text_cex = 10,
+  text_cex = 13,
   text_border = grey(0 / 255),
-  warp_lx = 0.11,
-  warp_ly = 0.064,
-  warp_rx = 0.31,
-  warp_ry = 0.24
+  warp_ly = -0.03,
+  warp_ry = 0.25
 )
 dev.off.all()
 
 tinyimg::tinypng(
   "logo/logo.png",
   "logo/logo.png",
-  level = 4L,
+  level = 6L,
   alpha = TRUE,
   lossy = 2.3
 )
