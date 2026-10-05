@@ -4,7 +4,13 @@
 \alias{plot_color}
 \title{Plot colored cells}
 \usage{
-plot_color(col, label = TRUE, index = TRUE, border = graphics::par("bg"))
+plot_color(
+  col,
+  label = TRUE,
+  index = TRUE,
+  border = graphics::par("bg"),
+  cex_label = 1
+)
 }
 \arguments{
 \item{col}{A vector, matrix, or list of vectors/matrices, all containing R
@@ -17,6 +23,8 @@ applicable).}
 
 \item{border}{Border color for each cell. Use \code{NA} for transparent borders,
 or \code{NULL} to make borders match the cell background colors.}
+
+\item{cex_label}{Size of printed color names, as multiplier of default size.}
 }
 \value{
 Invisibly returns a \link[gtable:gtable]{gtable} (aka grob table) object.

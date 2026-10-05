@@ -28,6 +28,7 @@
 #'   applicable).
 #' @param border Border color for each cell. Use `NA` for transparent borders,
 #'   or `NULL` to make borders match the cell background colors.
+#' @param cex_label Size of printed color names, as multiplier of default size.
 #'
 #' @returns Invisibly returns a [gtable] (aka grob table) object.
 #' @seealso [print_color()] for printing colors in the console.
@@ -54,7 +55,7 @@
 #' color_mat <- structure(rainbow(n)[color_idx], dim = dim(mat))
 #' plot_color(color_mat, label = FALSE, index = FALSE, border = NULL)
 plot_color <- function(col, label = TRUE, index = TRUE,
-                       border = graphics::par("bg")) {
+                       border = graphics::par("bg"), cex_label = 1) {
   rlang::check_bool(label)
   rlang::check_bool(index)
   check_color(border, req_len = 1, allow_null = TRUE)
@@ -67,7 +68,8 @@ plot_color <- function(col, label = TRUE, index = TRUE,
       label = label,
       row_index = index,
       col_index = index && is.matrix(col),
-      border = border
+      border = border,
+      cex_label = cex_label
     )
   } else if (is.list(col)) {
     for (i in seq_along(col)) {
@@ -94,6 +96,7 @@ plot_color <- function(col, label = TRUE, index = TRUE,
         col_index = index && i == 1,
         ncol_pad = ncol_max - ncol(col[[i]]),
         border = border,
+        cex_label = cex_label,
         grobID = i
       )
     })
@@ -130,7 +133,8 @@ plot_color <- function(col, label = TRUE, index = TRUE,
 gtable_color_matrix <- function(col, label = TRUE, name = NULL,
                                 row_index = TRUE, col_index = TRUE,
                                 ncol_pad = 0,
-                                border = graphics::par("bg"), grobID = NULL) {
+                                border = graphics::par("bg"), cex_label = 1,
+                                grobID = NULL) {
   col <- as.matrix(col)
   nr <- nrow(col)
   nc <- ncol(col)
@@ -200,7 +204,10 @@ gtable_color_matrix <- function(col, label = TRUE, name = NULL,
       if (label) {
         gt <- gtable::gtable_add_grob(
           gt,
-          grobs = grid::textGrob(col[i, j], gp = grid::gpar(col = fg[i, j])),
+          grobs = grid::textGrob(col[i, j], gp = grid::gpar(
+            col = fg[i, j],
+            cex = cex_label
+          )),
           t = 1 + i,
           l = j,
           name = paste2("label", grobID, i, j, sep = "-")
