@@ -1,5 +1,8 @@
 ^colorkit\.Rproj$
+^\.Rhistory$
 ^\.Rprofile$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^logo$
+^README\.Rmd$
+^README_cache$
