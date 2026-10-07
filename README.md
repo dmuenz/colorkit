@@ -16,8 +16,9 @@ sampling colors, and displaying colors visually as plotted cells or
 printed console output.
 
 This package is meant to complement and not compete with excellent
-packages like scales and farver that provide robust color manipulation
-tools.
+packages like [scales](https://scales.r-lib.org/) and
+[farver](https://farver.data-imaginist.com/) that provide robust color
+manipulation tools.
 
 ## Installation
 
@@ -54,12 +55,10 @@ plot_color(list(
 ))
 ```
 
-<img src="man/figures/README-plot-color-1.png" alt="" width="100%" />
+<img src="man/figures/README-plot-color-1.png" alt="" width="80%" />
 
 And here are the same palettes printed to the console with
-`print_color()`. For `print_color()` to work best, your console must
-support 24-bit colors; that way it can display all 256^3 colors in the
-hex RGB color space (i.e., colors of the form `"#rrggbb"`).
+`print_color()`.
 
 ``` r
 print_color(list(
@@ -68,31 +67,86 @@ print_color(list(
 ))
 ```
 
-<img src="man/figures/README-/print-color.svg" alt="" width="100%" />
+<img src="man/figures/README-/print-color.svg" alt="" width="80%" />
+
+For `print_color()` to work best, your console must support 24-bit
+colors; that way it can display all 256<sup>3</sup> colors in the hex
+RGB color space (i.e., colors of the form `"#rrggbb"`). If your console
+does not support that many colors, then it may (depending on your
+platform) map each specified color to the closest printable color.
+`print_color()` is indebted to the [cli package](https://cli.r-lib.org/)
+for color printing in the console.
 
 ## Selecting contrasting foreground colors
 
 In the above examples, note that some color codes are printed in black
 (like `#FFFF00`) while others are printed in white (`#0000FF`). The text
 colors were chosen by `bg2fg()` to provide good contrast with the
-background, according to the methods defined by WCAG 2.x
-(<https://www.w3.org/WAI/GL/wiki/Contrast_ratio>,
-<https://www.w3.org/WAI/GL/wiki/Relative_luminance>).
+background, according to the methods defined by WCAG 2.x ([contrast
+ratio](https://www.w3.org/WAI/GL/wiki/Contrast_ratio), [relative
+luminance](https://www.w3.org/WAI/GL/wiki/Relative_luminance)).
 
 You can easily use `bg2fg()` for your own displays. Here’s an example of
 putting text within the bars of a bar plot:
 
 ``` r
 library(ggplot2)
-bg <- scales::pal_viridis()(3)
 
-penguins |>
-  dplyr::count(species) |>
-  ggplot(aes(species, n, fill = species)) +
-  geom_col() +
-  geom_text(aes(label = n, color = species), vjust = 1.2) +
+data <- data.frame(x = LETTERS[1:3], y = c(40, 20, 30))
+bg <- hcl.colors(3)
+
+ggplot(data, aes(x, y)) +
+  geom_col(aes(fill = x)) +
+  geom_text(aes(label = y, color = x), vjust = 1.2) +
   scale_fill_manual(values = bg) +
   scale_color_manual(values = bg2fg(bg))
 ```
 
-<img src="man/figures/README-bg2fg-1.png" alt="" width="100%" />
+<img src="man/figures/README-bg2fg-1.png" alt="" width="80%" />
+
+## Converting colors to hexadecimal strings
+
+Occasionally it is useful to standardize the various R color
+specifications into hex strings. `col2hex()` does this, converting all
+colors to uppercase hex strings with either 6 or 8 hex digits, depending
+for each color on whether it’s opaque.
+
+``` r
+col2hex(c("red", "#fac", "1", "transparent"))
+#> [1] "#FF0000"   "#FFAACC"   "#000000"   "#FFFFFF00"
+```
+
+Some use cases for this are:
+
+1.  When programmatically creating HTML/CSS code in R, you can use R
+    color specifications to create HTML/CSS colors. E.g., “violetred” is
+    a valid color name in R but not in HTML/CSS, so you could generate
+    code like
+    `sprintf("<div style='background:%s;'></div>", col2hex("violetred"))`.
+
+2.  With the `grid` package, the drawing of raster objects can be sped
+    up by first converting them to hex strings. See the `col2hex()` help
+    page for an example.
+
+`col2hex()` is indebted to the [farver
+package](https://farver.data-imaginist.com/) for color conversion.
+
+## Randomly sampling colors
+
+`rand_color()` generates a random sample of R color strings. When the
+parameter `hex` is `TRUE`, the sampling is uniformly distributed over
+the RGB(A) color space. When `hex` is `FALSE`, sampling is uniformly
+distributed over distinct R color names. When `hex` is between 0 and 1,
+the sampling distribution is a mixture of those two uniform
+distributions. By default, `hex` is 0.5.
+
+`rand_color()` proved useful to the colorkit package author when testing
+the package’s other functions. Here’s hoping it will prove useful to
+someone else too.
+
+``` r
+set.seed(123)
+rand_color(24) |> matrix(ncol = 4) |> print_color()
+```
+
+<img src="man/figures/README-/rand-color.svg" alt="" width="80%" />

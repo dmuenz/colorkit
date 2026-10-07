@@ -6,3 +6,6 @@
 .DS_Store
 .quarto
 README_cache
+
+/.quarto/
+**/*.quarto_ipynb
