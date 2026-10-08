@@ -20,8 +20,6 @@ jobs:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      COLORTERM: truecolor
-      CLI_NUM_COLORS: '16777216' # 256^3
     permissions:
       contents: write
     steps:
@@ -36,11 +34,14 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
-      - name: Build site
+      # Write to the user-level .Renviron so ALL R processes inherit these
+      - name: Configure truecolor support
         run: |
-          Sys.setenv(COLORTERM = "truecolor")
-          options(cli.num_colors = 256^3)
-          pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+          echo 'COLORTERM=truecolor' >> ~/.Renviron
+          echo 'R_CLI_NUM_COLORS=16777216' >> ~/.Renviron
+
+      - name: Build site
+        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
       - name: Deploy to GitHub pages 🚀
