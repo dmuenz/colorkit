@@ -21,3 +21,4 @@ Suggests:
 Config/roxygen2/version: 8.1.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+URL: https://dmuenz.github.io/colorkit/
