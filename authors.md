@@ -6,14 +6,17 @@
 
 ## Citation
 
+Source:
+[`DESCRIPTION`](https://github.com/dmuenz/colorkit/blob/main/DESCRIPTION)
+
 Muenz D (2026). *colorkit: Tools for Color Display, Conversion, and
 Sampling*. R package version 0.0.0.9000,
-<https://dmuenz.github.io/colorkit/>.
+<https://github.com/dmuenz/colorkit>.
 
     @Manual{,
       title = {colorkit: Tools for Color Display, Conversion, and Sampling},
       author = {Daniel Muenz},
       year = {2026},
       note = {R package version 0.0.0.9000},
-      url = {https://dmuenz.github.io/colorkit/},
+      url = {https://github.com/dmuenz/colorkit},
     }
