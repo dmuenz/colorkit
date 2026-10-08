@@ -9,6 +9,9 @@ Description: Utility functions for working with colors in R. Includes
     sampling colors, and displaying colors visually as plotted cells or
     printed console output.
 License: MIT + file LICENSE
+URL: https://github.com/dmuenz/colorkit,
+    https://dmuenz.github.io/colorkit/
+BugReports: https://github.com/dmuenz/colorkit/issues
 Depends:
     R (>= 4.1.0)
 Imports:
@@ -21,4 +24,3 @@ Suggests:
 Config/roxygen2/version: 8.1.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-URL: https://dmuenz.github.io/colorkit/
