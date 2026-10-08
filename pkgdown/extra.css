@@ -1,0 +1,4 @@
+/* Prevent dark mode from inverting example plots */
+[data-bs-theme="dark"] pre .r-plt.img img {
+    filter: none;
+}
