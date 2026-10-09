@@ -1,11 +1,11 @@
 # Print colored cells in the console
 
 Pass `print_color()` R colors, and it will print each color as a colored
-rectangle/cell. The background color of the cell will be the specified
-color (or a close approximation, depending on how many colors your
-console supports). By default, the color string text will be printed in
-the foreground of the cell (in a color that contrasts with the
-background).
+rectangle/cell in the console. The background color of the cell will be
+the specified color (or a close approximation, depending on how many
+colors your console supports). By default, the color string text will be
+printed in the foreground of the cell (in a color that contrasts with
+the background).
 
 `print_color()` and
 [`plot_color()`](https://dmuenz.github.io/colorkit/reference/plot_color.md)
@@ -72,20 +72,26 @@ Invisibly returns `col`.
 
 ## Details
 
-`print_color()` works best if your console supports 24-bit colors. If it
-does, then your console can display all 2^24 colors (equivalently, 256^3
-or ~16.7 million colors) that can be specified using the `"#rrggbb"` hex
-RGB syntax. If your console does not support that many colors, then it
-may (depending on your platform) map each specified color to the closest
-printable color.
+Printing in color in the console is handled by the [cli
+package](https://cli.r-lib.org/reference/cli-package.html), and it works
+best if your console supports 24-bit colors. `print_color()` determines
+how many colors are available using the following mechanism:
+
+1.  If the `colorkit.num_colors` options is set, use it.
+
+2.  If R is running inside Positron, use 256^3 (~16.7 million).
+
+3.  Otherwise use
+    [`cli::num_ansi_colors()`](https://cli.r-lib.org/reference/num_ansi_colors.html).
 
 To visually check whether your console supports 24-bit colors, run the
 following code. If the result is a fairly smooth gradient within each
 row, then you have 24-bit colors. If you instead see color banding
 (wide, distinct steps between colors within a row) or worse (e.g.,
-monochrome), then you have fewer colors.
+nothing at all), then you have fewer colors available.
 
     # test: can the console print in 24-bit color?
+    options(colorkit.num_colors = 256^3)
     print_color(matrix(rainbow(240), nrow = 6, byrow = TRUE), width = 1)
 
 The foreground text color of each cell is determined by
