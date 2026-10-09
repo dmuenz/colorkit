@@ -33,7 +33,7 @@
 #' The foreground text color of each cell is determined by [bg2fg()].
 #'
 #' @param col A vector, matrix, or list of vectors/matrices, all containing R
-#'   colors. Can be character or numeric. The alpha (tranparency) channel will
+#'   colors. Can be character or numeric. The alpha (transparency) channel will
 #'   be ignored.
 #' @param quote `TRUE`/`FALSE` for whether to print quotation marks around color
 #'   strings.
@@ -61,8 +61,8 @@
 #' @seealso [plot_color()] for plotting colors in the graphics device.
 #' @export
 #' @examples
-#' print_color(c("red", "steelblue", "turquoise"))
-#' print_color(c("red", "steelblue", "turquoise"), width = 5)
+#' print_color(c("red", "steelblue", "#40E0D0"))
+#' print_color(c("red", "steelblue", "#40E0D0"), width = 5)
 #'
 #' print_color(rainbow(10))
 #' print_color(rainbow(80), width = 1)
@@ -104,10 +104,10 @@ print_color <- function(col, quote = FALSE, width = NULL, gap = NULL,
   max <- floor(max)
 
   num_colors <-
-    if (Sys.getenv("POSITRON") == "1") {
+    if (!is.null(getOption("colorkit.num_colors"))) {
+      as.integer(getOption("colorkit.num_colors"))
+    } else if (Sys.getenv("POSITRON") == "1") {
       2^24
-    } else if (Sys.getenv("R_COLORKIT_NUM_COLORS") != "") {
-      as.integer(Sys.getenv("R_COLORKIT_NUM_COLORS"))
     } else {
       cli::num_ansi_colors()
     }

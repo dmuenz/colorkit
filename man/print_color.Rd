@@ -8,7 +8,7 @@ print_color(col, quote = FALSE, width = NULL, gap = NULL, max = NULL)
 }
 \arguments{
 \item{col}{A vector, matrix, or list of vectors/matrices, all containing R
-colors. Can be character or numeric. The alpha (tranparency) channel will
+colors. Can be character or numeric. The alpha (transparency) channel will
 be ignored.}
 
 \item{quote}{\code{TRUE}/\code{FALSE} for whether to print quotation marks around color
@@ -75,8 +75,8 @@ print_color(matrix(rainbow(240), nrow = 6, byrow = TRUE), width = 1)
 The foreground text color of each cell is determined by \code{\link[=bg2fg]{bg2fg()}}.
 }
 \examples{
-print_color(c("red", "steelblue", "turquoise"))
-print_color(c("red", "steelblue", "turquoise"), width = 5)
+print_color(c("red", "steelblue", "#40E0D0"))
+print_color(c("red", "steelblue", "#40E0D0"), width = 5)
 
 print_color(rainbow(10))
 print_color(rainbow(80), width = 1)

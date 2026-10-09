@@ -34,9 +34,9 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
-      # Write to the user-level .Renviron so ALL R processes inherit this
+      # Write to the user-level .Rprofile so ALL R processes inherit this
       - name: Configure truecolor support
-        run: echo 'R_COLORKIT_NUM_COLORS=16777216' >> ~/.Renviron
+        run: echo 'options(colorkit.num_colors = 256^3)' >> ~/.Rprofile
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
