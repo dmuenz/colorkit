@@ -45,9 +45,9 @@ Invisibly returns \code{col}.
 }
 \description{
 Pass \code{print_color()} R colors, and it will print each color as a colored
-rectangle/cell. The background color of the cell will be the specified color
-(or a close approximation, depending on how many colors your console
-supports). By default, the color string text will be printed in the
+rectangle/cell in the console. The background color of the cell will be the
+specified color (or a close approximation, depending on how many colors your
+console supports). By default, the color string text will be printed in the
 foreground of the cell (in a color that contrasts with the background).
 
 \code{print_color()} and \code{\link[=plot_color]{plot_color()}} are sister functions that both display
@@ -55,20 +55,23 @@ color cells. The primary difference is where the colors are displayed: in the
 console or in the graphics device.
 }
 \details{
-\code{print_color()} works best if your console supports 24-bit colors. If it
-does, then your console can display all 2^24 colors (equivalently, 256^3 or
-~16.7 million colors) that can be specified using the \code{"#rrggbb"} hex RGB
-syntax. If your console does not support that many colors, then it may
-(depending on your platform) map each specified color to the closest
-printable color.
+Printing in color in the console is handled by the \link[cli:cli-package]{cli package}, and it works best if your console supports 24-bit
+colors. \code{print_color()} determines how many colors are available using the
+following mechanism:
+\enumerate{
+\item If the \code{colorkit.num_colors} options is set, use it.
+\item If R is running inside Positron, use 256^3 (~16.7 million).
+\item Otherwise use \code{\link[cli:num_ansi_colors]{cli::num_ansi_colors()}}.
+}
 
 To visually check whether your console supports 24-bit colors, run the
 following code. If the result is a fairly smooth gradient within each row,
 then you have 24-bit colors. If you instead see color banding (wide, distinct
-steps between colors within a row) or worse (e.g., monochrome), then you have
-fewer colors.
+steps between colors within a row) or worse (e.g., nothing at all), then you
+have fewer colors available.
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{# test: can the console print in 24-bit color?
+options(colorkit.num_colors = 256^3)
 print_color(matrix(rainbow(240), nrow = 6, byrow = TRUE), width = 1)
 }\if{html}{\out{</div>}}
 
