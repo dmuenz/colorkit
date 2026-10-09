@@ -24,7 +24,7 @@ print_color(col, quote = FALSE, width = NULL, gap = NULL, max = NULL)
 - col:
 
   A vector, matrix, or list of vectors/matrices, all containing R
-  colors. Can be character or numeric. The alpha (tranparency) channel
+  colors. Can be character or numeric. The alpha (transparency) channel
   will be ignored.
 
 - quote:
@@ -99,10 +99,10 @@ for plotting colors in the graphics device.
 ## Examples
 
 ``` r
-print_color(c("red", "steelblue", "turquoise"))
+print_color(c("red", "steelblue", "#40E0D0"))
 #> (3 colors)
-#> red       steelblue turquoise
-print_color(c("red", "steelblue", "turquoise"), width = 5)
+#> red       steelblue #40E0D0  
+print_color(c("red", "steelblue", "#40E0D0"), width = 5)
 #> (3 colors)
 #>                
 
