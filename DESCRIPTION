@@ -21,6 +21,6 @@ Imports:
     rlang
 Suggests:
     RColorBrewer
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
