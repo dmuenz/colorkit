@@ -103,8 +103,14 @@ print_color <- function(col, quote = FALSE, width = NULL, gap = NULL,
   }
   max <- floor(max)
 
-  num_colors <- if (Sys.getenv("POSITRON") == "1") 2^24
-  else cli::num_ansi_colors()
+  num_colors <-
+    if (Sys.getenv("POSITRON") == "1") {
+      2^24
+    } else if (Sys.getenv("R_COLORKIT_NUM_COLORS") != "") {
+      as.integer(Sys.getenv("R_COLORKIT_NUM_COLORS"))
+    } else {
+      cli::num_ansi_colors()
+    }
 
   old_op <- options(cli.num_colors = num_colors)
   on.exit(options(old_op))
@@ -128,8 +134,8 @@ print_color <- function(col, quote = FALSE, width = NULL, gap = NULL,
       list_name <- names(col[i])
       nm <-
         if (is.null(list_name) || isTRUE(nchar(list_name) == 0)) "[[{i}]]"
-      else if (grepl("\\s", list_name)) "$`{list_name}`"
-      else "${list_name}"
+        else if (grepl("\\s", list_name)) "$`{list_name}`"
+        else "${list_name}"
 
       cli_text_basic(nm)
       do.call(
@@ -309,9 +315,9 @@ omission_note <- function(n = NULL, nrow = NULL, ncol = NULL) {
 # non-breaking space
 nbsp <- function(length) strrep("\u00A0", length)
 
-cli_text_basic <- function(..., .envir = parent.frame(), keep_whitespace = FALSE) {
+cli_text_basic <- function(..., .envir = parent.frame()) {
   cat(
-    cli::format_inline(..., .envir = .envir, keep_whitespace = keep_whitespace),
+    cli::format_inline(..., .envir = .envir, keep_whitespace = FALSE),
     "\n",
     sep = ""
   )
