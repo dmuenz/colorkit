@@ -39,7 +39,7 @@ hex digits, depending for each color on whether it's opaque."><meta property="og
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Convert colors to hex color strings</h1>
-      <small class="dont-index">Source: <a href="https://github.com/dmuenz/colorkit/blob/main/R/conversion.R" class="external-link"><code>R/conversion.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/dmuenz/colorkit/blob/main/R/col2hex.R" class="external-link"><code>R/col2hex.R</code></a></small>
       <div class="d-none name"><code>col2hex.Rd</code></div>
     </div>
 
@@ -92,6 +92,23 @@ testing.</p>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>grid<span class="sc">::</span><span class="fu">grid.newpage</span>()</span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>grid<span class="sc">::</span><span class="fu">grid.raster</span>(<span class="fu">col2hex</span>(cols))</span></code></pre><p></p></div>
     </div>
+    <div class="section level2">
+    <h2 id="other-approaches">Other approaches<a class="anchor" aria-label="anchor" href="#other-approaches"></a></h2>
+
+
+<p>Using <code>col2hex()</code> is similar to chaining together base R's <code><a href="https://rdrr.io/r/grDevices/col2rgb.html" class="external-link">col2rgb()</a></code> and
+<code><a href="https://rdrr.io/r/grDevices/rgb.html" class="external-link">rgb()</a></code> (or similarly <code><a href="https://farver.data-imaginist.com/reference/decode_colour.html" class="external-link">farver::decode_colour()</a></code> and
+<code><a href="https://farver.data-imaginist.com/reference/encode_colour.html" class="external-link">farver::encode_colour()</a></code>), but <code>col2hex()</code> has two main advantages:</p><ol><li><p><code>col2hex()</code> is typically substantially faster for large input
+vectors/arrays because it works entirely on strings. It avoids the
+unnecessary round-trip of parsing hex characters to integers and then
+converting those integers back to hex characters. (<code>col2hex()</code> is a bit
+slower for small inputs, though the difference is on the order of a few
+microseconds.)</p></li>
+<li><p><code>col2hex()</code> preserves the shape of its input (i.e., a vector stays a
+vector, an array stays an array) and whether it's a raster matrix. The
+other approaches would require additional steps to restore the input's
+shape and rasterness.</p></li>
+</ol></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="bg2fg.html">bg2fg()</a></code> for choosing a foreground color to contrast with a

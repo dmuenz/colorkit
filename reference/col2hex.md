@@ -52,6 +52,28 @@ latter is noticeably faster in the author's testing.
     grid::grid.newpage()
     grid::grid.raster(col2hex(cols))
 
+## Other approaches
+
+Using `col2hex()` is similar to chaining together base R's
+[`col2rgb()`](https://rdrr.io/r/grDevices/col2rgb.html) and
+[`rgb()`](https://rdrr.io/r/grDevices/rgb.html) (or similarly
+[`farver::decode_colour()`](https://farver.data-imaginist.com/reference/decode_colour.html)
+and
+[`farver::encode_colour()`](https://farver.data-imaginist.com/reference/encode_colour.html)),
+but `col2hex()` has two main advantages:
+
+1.  `col2hex()` is typically substantially faster for large input
+    vectors/arrays because it works entirely on strings. It avoids the
+    unnecessary round-trip of parsing hex characters to integers and
+    then converting those integers back to hex characters. (`col2hex()`
+    is a bit slower for small inputs, though the difference is on the
+    order of a few microseconds.)
+
+2.  `col2hex()` preserves the shape of its input (i.e., a vector stays a
+    vector, an array stays an array) and whether it's a raster matrix.
+    The other approaches would require additional steps to restore the
+    input's shape and rasterness.
+
 ## See also
 
 [`bg2fg()`](https://dmuenz.github.io/colorkit/reference/bg2fg.md) for
