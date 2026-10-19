@@ -47,6 +47,25 @@ grid::grid.newpage()
 grid::grid.raster(col2hex(cols))
 }\if{html}{\out{</div>}}
 }
+\section{Other approaches}{
+
+Using \code{col2hex()} is similar to chaining together base R's \code{\link[=col2rgb]{col2rgb()}} and
+\code{\link[=rgb]{rgb()}} (or similarly \code{\link[farver:decode_colour]{farver::decode_colour()}} and
+\code{\link[farver:encode_colour]{farver::encode_colour()}}), but \code{col2hex()} has two main advantages:
+\enumerate{
+\item \code{col2hex()} is typically substantially faster for large input
+vectors/arrays because it works entirely on strings. It avoids the
+unnecessary round-trip of parsing hex characters to integers and then
+converting those integers back to hex characters. (\code{col2hex()} is a bit
+slower for small inputs, though the difference is on the order of a few
+microseconds.)
+\item \code{col2hex()} preserves the shape of its input (i.e., a vector stays a
+vector, an array stays an array) and whether it's a raster matrix. The
+other approaches would require additional steps to restore the input's
+shape and rasterness.
+}
+}
+
 \examples{
 col2hex(1:8)
 col2hex(c("red", "#fac", "1", NA))
