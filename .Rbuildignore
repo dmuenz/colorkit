@@ -10,3 +10,6 @@
 ^_pkgdown\.yml$
 ^pkgdown$
 ^\.github$
+^src/.*\.o$
+^src/.*\.so$
+^src/.*\.dll$
