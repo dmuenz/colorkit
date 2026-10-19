@@ -82,15 +82,15 @@ col2hex <- function(col) {
 
 # Colors lookup table is built once per session in .onLoad
 colors_lookup_table <- function() {
-  col <- colors()
+  col <- grDevices::colors()
   rgb_mat <- farver::decode_colour(col)
   hex <- farver::encode_colour(rgb_mat)
-  c(setNames(hex, col), transparent = "#FFFFFF00")
+  c(stats::setNames(hex, col), transparent = "#FFFFFF00")
 }
 
 # Palette lookup table is built once per col2hex() call
 palette_lookup_table <- function() {
-  col <- palette()
+  col <- grDevices::palette()
   rgba_mat <- farver::decode_colour(col, alpha = TRUE)
   hex <- farver::encode_colour(rgba_mat, alpha = rgba_mat[, 4])
   hex
