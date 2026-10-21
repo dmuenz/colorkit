@@ -153,7 +153,7 @@ gtable_color_matrix <- function(col, label = TRUE, name = NULL,
     })
 
     # Height of grobs
-    h_top <- Reduce(grid::unit.pmax, lapply(col_idx_grobs, grid::grobHeight)) + pad
+    h_top <- do.call(max, lapply(col_idx_grobs, grid::grobHeight)) + pad
   } else {
     h_top <- grid::unit(0, "mm")
   }
@@ -165,7 +165,7 @@ gtable_color_matrix <- function(col, label = TRUE, name = NULL,
     })
 
     # Width of grobs
-    w_right <- Reduce(grid::unit.pmax, lapply(row_idx_grobs, grid::grobWidth)) + pad
+    w_right <- do.call(max, lapply(row_idx_grobs, grid::grobWidth)) + pad
   } else {
     w_right <- grid::unit(0, "mm")
   }
