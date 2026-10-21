@@ -141,6 +141,8 @@ gtable_color_matrix <- function(col, label = TRUE, name = NULL,
   if (nr == 0L || nc == 0L)
     return(invisible(NULL))
 
+  nc_total <- nc + ncol_pad
+
   # A little padding for margin text
   pad <- grid::unit(3, "mm")
 
@@ -148,7 +150,7 @@ gtable_color_matrix <- function(col, label = TRUE, name = NULL,
 
   # Optional index grobs for columns (on top)
   if (col_index) {
-    col_idx_grobs <- lapply(seq_len(nc + ncol_pad), function(j) {
+    col_idx_grobs <- lapply(seq_len(nc_total), function(j) {
       grid::textGrob(j, y = 1, just = c("center", "top"), gp = index_gp)
     })
 
@@ -172,7 +174,7 @@ gtable_color_matrix <- function(col, label = TRUE, name = NULL,
 
   # Build gtable dimensions
   # Column widths: one "null" per color column; optional right index column
-  width_list <- replicate(nc + ncol_pad, grid::unit(1, "null"), simplify = FALSE)
+  width_list <- replicate(nc_total, grid::unit(1, "null"), simplify = FALSE)
   width_list <- c(width_list, list(w_right))
   widths <- do.call(grid::unit.c, width_list)
 
@@ -231,8 +233,8 @@ gtable_color_matrix <- function(col, label = TRUE, name = NULL,
       gt,
       col_idx_grobs,
       t = 1,
-      l = seq_len(nc + ncol_pad),
-      name = paste2("colID", grobID, seq_len(nc + ncol_pad), sep = "-")
+      l = seq_len(nc_total),
+      name = paste2("colID", grobID, seq_len(nc_total), sep = "-")
     )
   }
 
