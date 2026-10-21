@@ -161,7 +161,7 @@ gtable_color_matrix <- function(col, label = TRUE, name = NULL,
   # Optional index grobs for rows (on right)
   if (row_index) {
     row_idx_grobs <- lapply(seq_len(nr), function(i) {
-      grid::textGrob(i, x = 1, just = "right", gp = index_gp)
+      grid::textGrob(i, x = pad, just = "left", gp = index_gp)
     })
 
     # Width of grobs
