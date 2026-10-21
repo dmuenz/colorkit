@@ -225,6 +225,7 @@ gtable_color_matrix <- function(col, label = TRUE, name = NULL,
       grobs = row_idx_grobs,
       t = 1 + seq_len(nr),
       l = nc + 1,
+      clip = "off",
       name = paste2("rowID", grobID, seq_len(nr), sep = "-")
     )
   }
@@ -234,6 +235,7 @@ gtable_color_matrix <- function(col, label = TRUE, name = NULL,
       col_idx_grobs,
       t = 1,
       l = seq_len(nc_total),
+      clip = "off",
       name = paste2("colID", grobID, seq_len(nc_total), sep = "-")
     )
   }
