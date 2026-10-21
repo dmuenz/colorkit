@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' data-engine-version='2.0' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMTEuMzR8MzUyLjc0fDI3LjI4fDI5NS45Nw=='>
+    <rect x='11.34' y='27.28' width='341.41' height='268.69' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMTEuMzR8MzUyLjc0fDI3LjI4fDI5NS45Nw==)'>
+<rect x='11.34' y='27.28' width='341.41' height='268.69' style='stroke-width: 0.75; stroke: #FFFFFF; fill: #FF0000;' />
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<g clip-path='url(#cpMTEuMzR8MzUyLjc0fDI3LjI4fDI5NS45Nw==)'>
+<text x='182.04' y='165.75' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='48.03px' lengthAdjust='spacingAndGlyphs'>#FF0000</text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMzUyLjc0fDY5NC4xNXwyNy4yOHwyOTUuOTc='>
+    <rect x='352.74' y='27.28' width='341.41' height='268.69' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMzUyLjc0fDY5NC4xNXwyNy4yOHwyOTUuOTc=)'>
+<rect x='352.74' y='27.28' width='341.41' height='268.69' style='stroke-width: 0.75; stroke: #FFFFFF; fill: #00FFFF;' />
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<g clip-path='url(#cpMzUyLjc0fDY5NC4xNXwyNy4yOHwyOTUuOTc=)'>
+<text x='523.45' y='165.75' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='49.34px' lengthAdjust='spacingAndGlyphs'>#00FFFF</text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMTEuMzR8MzUyLjc0fDI5NS45N3w1NjQuNjY='>
+    <rect x='11.34' y='295.97' width='341.41' height='268.69' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMTEuMzR8MzUyLjc0fDI5NS45N3w1NjQuNjY=)'>
+<rect x='11.34' y='295.97' width='341.41' height='268.69' style='stroke-width: 0.75; stroke: #FFFFFF; fill: #80FF00;' />
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<g clip-path='url(#cpMTEuMzR8MzUyLjc0fDI5NS45N3w1NjQuNjY=)'>
+<text x='182.04' y='434.44' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='48.03px' lengthAdjust='spacingAndGlyphs'>#80FF00</text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMzUyLjc0fDY5NC4xNXwyOTUuOTd8NTY0LjY2'>
+    <rect x='352.74' y='295.97' width='341.41' height='268.69' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMzUyLjc0fDY5NC4xNXwyOTUuOTd8NTY0LjY2)'>
+<rect x='352.74' y='295.97' width='341.41' height='268.69' style='stroke-width: 0.75; stroke: #FFFFFF; fill: #8000FF;' />
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<g clip-path='url(#cpMzUyLjc0fDY5NC4xNXwyOTUuOTd8NTY0LjY2)'>
+<text x='523.45' y='434.44' text-anchor='middle' style='font-size: 12.00px; fill: #F8F8F8; font-family: sans;' textLength='48.03px' lengthAdjust='spacingAndGlyphs'>#8000FF</text>
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<text x='702.65' y='165.34' style='font-size: 10.80px; font-family: sans;' textLength='6.01px' lengthAdjust='spacingAndGlyphs'>1</text>
+<text x='702.65' y='434.03' style='font-size: 10.80px; font-family: sans;' textLength='6.01px' lengthAdjust='spacingAndGlyphs'>2</text>
+<text x='182.04' y='18.77' text-anchor='middle' style='font-size: 10.80px; font-family: sans;' textLength='6.01px' lengthAdjust='spacingAndGlyphs'>1</text>
+<text x='523.45' y='18.77' text-anchor='middle' style='font-size: 10.80px; font-family: sans;' textLength='6.01px' lengthAdjust='spacingAndGlyphs'>2</text>
+<text x='717.17' y='573.17' text-anchor='end' style='font-size: 10.00px; font-family: sans;' textLength='111.18px' lengthAdjust='spacingAndGlyphs'>snapshot: rainbow matrix</text>
+<text x='717.17' y='573.17' text-anchor='end' style='font-size: 10.00px; font-family: sans;' textLength='111.18px' lengthAdjust='spacingAndGlyphs'>snapshot: rainbow matrix</text>
+</g>
+</svg>
