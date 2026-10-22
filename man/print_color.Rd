@@ -4,7 +4,15 @@
 \alias{print_color}
 \title{Print colored cells in the console}
 \usage{
-print_color(col, quote = FALSE, width = NULL, gap = NULL, max = NULL)
+print_color(
+  col,
+  quote = FALSE,
+  width = NULL,
+  gap = NULL,
+  max = NULL,
+  count = TRUE,
+  num_colors = NULL
+)
 }
 \arguments{
 \item{col}{A vector, matrix, or list of vectors/matrices, all containing R
@@ -39,6 +47,13 @@ foreground text), the gap will be 1 space.
 (the default, meaning use \code{getOption("max.print")}) or a number >= 0. The
 number will be truncated (\code{floor(max)}) and then will be honored exactly
 when printing a vector or approximately when printing a matrix.}
+
+\item{count}{\code{TRUE}/\code{FALSE} for whether to print the total number of colors
+in \code{col}.}
+
+\item{num_colors}{Specify the number of colors supported for printing in the
+R console. Typical values are \code{NULL}, 256^3, 256, 8, and 1. See the Details
+section for more information.}
 }
 \value{
 Invisibly returns \code{col}.
@@ -56,24 +71,24 @@ console or in the graphics device.
 }
 \details{
 Printing in color in the console is handled by the \link[cli:cli-package]{cli package}, and it works best if your console supports 24-bit
-colors. \code{print_color()} determines how many colors are available using the
-following mechanism:
+colors (i.e., 256^3 colors, also called true color). \code{print_color()}
+determines how many colors are available using the following mechanism:
 \enumerate{
+\item If the \code{num_colors} parameter is not \code{NULL}, use it.
 \item If the \code{colorkit.num_colors} options is set, use it.
 \item If R is running inside Positron, use 256^3 (~16.7 million).
 \item Otherwise use \code{\link[cli:num_ansi_colors]{cli::num_ansi_colors()}}.
 }
 
-To visually check whether your console supports 24-bit colors, run the
-following code. If the result is a fairly smooth gradient within each row,
-then you have 24-bit colors. If you instead see color banding (wide, distinct
-steps between colors within a row) or worse (e.g., nothing at all), then you
-have fewer colors available.
+Note that if your console supports, say 256^3 colors, but \code{print_color()}
+determines that fewer colors are available, say only 256, then
+\code{print_color()} will only be able to print 256 colors. However, if
+\code{print_color()} determines that more colors are available than your console
+actually supports, then \code{print_color()} will not, alas, be able to print
+unsupported colors.
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{# test: can the console print in 24-bit color?
-options(colorkit.num_colors = 256^3)
-print_color(matrix(rainbow(240), nrow = 6, byrow = TRUE), width = 1)
-}\if{html}{\out{</div>}}
+To visually check whether your console supports 256^3 colors (or only 256
+colors, or only 8), try using \code{\link[=console_color_test]{console_color_test()}}.
 
 The foreground text color of each cell is determined by \code{\link[=bg2fg]{bg2fg()}}.
 }
@@ -101,5 +116,7 @@ color_mat <- structure(rainbow(n)[color_idx], dim = dim(mat))
 print_color(color_mat, width = 3)
 }
 \seealso{
-\code{\link[=plot_color]{plot_color()}} for plotting colors in the graphics device.
+\code{\link[=plot_color]{plot_color()}} for plotting colors in the graphics device,
+\code{\link[=console_color_test]{console_color_test()}} for visually testing how many colors your R console
+supports.
 }

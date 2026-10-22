@@ -22,17 +22,15 @@
 #' 3. If R is running inside Positron, use 256^3 (~16.7 million).
 #' 4. Otherwise use [cli::num_ansi_colors()].
 #'
-#' To visually check whether your console supports 24-bit colors, run the
-#' following code. If the result is a fairly smooth gradient within each row,
-#' then you have 24-bit colors. If you instead see color banding (wide, distinct
-#' steps between colors within a row) or worse (e.g., nothing at all), then you
-#' have fewer colors available.
+#' Note that if your console supports, say 256^3 colors, but `print_color()`
+#' determines that fewer colors are available, say only 256, then
+#' `print_color()` will only be able to print 256 colors. However, if
+#' `print_color()` determines that more colors are available than your console
+#' actually supports, then `print_color()` will not, alas, be able to print
+#' unsupported colors.
 #'
-#' ```
-#' # test: can the console print in 24-bit color?
-#' options(colorkit.num_colors = 256^3)
-#' print_color(matrix(rainbow(240), nrow = 6, byrow = TRUE), width = 1)
-#' ```
+#' To visually check whether your console supports 256^3 colors (or only 256
+#' colors, or only 8), try using [console_color_test()].
 #'
 #' The foreground text color of each cell is determined by [bg2fg()].
 #'
@@ -67,7 +65,9 @@
 #'   section for more information.
 #'
 #' @returns Invisibly returns `col`.
-#' @seealso [plot_color()] for plotting colors in the graphics device.
+#' @seealso [plot_color()] for plotting colors in the graphics device,
+#'   [console_color_test()] for visually testing how many colors your R console
+#'   supports.
 #' @export
 #' @examples
 #' print_color(c("red", "steelblue", "#40E0D0"))
