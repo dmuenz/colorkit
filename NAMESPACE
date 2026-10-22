@@ -2,6 +2,7 @@
 
 export(bg2fg)
 export(col2hex)
+export(console_color_test)
 export(plot_color)
 export(print_color)
 export(rand_color)

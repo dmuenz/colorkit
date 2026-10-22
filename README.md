@@ -69,13 +69,19 @@ print_color(list(
 
 <img src="man/figures/README-/print-color.svg" alt="" width="80%" />
 
-For `print_color()` to work best, your console must support 24-bit
+For `print_color()` to work best, your R console must support 24-bit
 colors; that way it can display all 256<sup>3</sup> colors in the hex
-RGB color space (i.e., colors of the form `"#rrggbb"`). If your console
-does not support that many colors, then it may (depending on your
-platform) map each specified color to the closest printable color.
-`print_color()` is indebted to the [cli package](https://cli.r-lib.org/)
-for color printing in the console.
+RGB color space (i.e., colors of the form `"#rrggbb"`). To visually
+inspect if your console supports 256<sup>3</sup> colors, you can use
+`console_color_test()`; visit the help page see the output of a
+successful test for 256<sup>3</sup> colors.
+
+If your console does not support that many colors, then it may
+(depending on your platform) map each specified color to the closest
+printable color.
+
+`print_color()` and `console_color_test()` are indebted to the [cli
+package](https://cli.r-lib.org/) for color printing in the console.
 
 ## Selecting contrasting foreground colors
 
@@ -127,9 +133,6 @@ Some use cases for this are:
 2.  With the `grid` package, the drawing of raster objects can be sped
     up by first converting them to hex strings. See the `col2hex()` help
     page for an example.
-
-`col2hex()` is indebted to the [farver
-package](https://farver.data-imaginist.com/) for color conversion.
 
 ## Randomly sampling colors
 
