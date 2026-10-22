@@ -7,6 +7,8 @@
   background color
 - [`col2hex()`](https://dmuenz.github.io/colorkit/reference/col2hex.md)
   : Convert colors to hex color strings
+- [`console_color_test()`](https://dmuenz.github.io/colorkit/reference/console_color_test.md)
+  : Visual test for color support in the R console
 - [`plot_color()`](https://dmuenz.github.io/colorkit/reference/plot_color.md)
   : Plot colored cells
 - [`print_color()`](https://dmuenz.github.io/colorkit/reference/print_color.md)

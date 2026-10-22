@@ -64,7 +64,15 @@ console or in the graphics device.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">print_color</span><span class="op">(</span><span class="va">col</span>, quote <span class="op">=</span> <span class="cn">FALSE</span>, width <span class="op">=</span> <span class="cn">NULL</span>, gap <span class="op">=</span> <span class="cn">NULL</span>, max <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">print_color</span><span class="op">(</span></span>
+<span>  <span class="va">col</span>,</span>
+<span>  quote <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  gap <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  count <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  num_colors <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -109,6 +117,17 @@ foreground text), the gap will be 1 space.</p></li>
 number will be truncated (<code>floor(max)</code>) and then will be honored exactly
 when printing a vector or approximately when printing a matrix.</p></dd>
 
+
+<dt id="arg-count">count<a class="anchor" aria-label="anchor" href="#arg-count"></a></dt>
+<dd><p><code>TRUE</code>/<code>FALSE</code> for whether to print the total number of colors
+in <code>col</code>.</p></dd>
+
+
+<dt id="arg-num-colors">num_colors<a class="anchor" aria-label="anchor" href="#arg-num-colors"></a></dt>
+<dd><p>Specify the number of colors supported for printing in the
+R console. Typical values are <code>NULL</code>, 256^3, 256, 8, and 1. See the Details
+section for more information.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -117,23 +136,26 @@ when printing a vector or approximately when printing a matrix.</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Printing in color in the console is handled by the <a href="https://cli.r-lib.org/reference/cli-package.html" class="external-link">cli package</a>, and it works best if your console supports 24-bit
-colors. <code>print_color()</code> determines how many colors are available using the
-following mechanism:</p><ol><li><p>If the <code>colorkit.num_colors</code> options is set, use it.</p></li>
+colors (i.e., 256^3 colors, also called true color). <code>print_color()</code>
+determines how many colors are available using the following mechanism:</p><ol><li><p>If the <code>num_colors</code> parameter is not <code>NULL</code>, use it.</p></li>
+<li><p>If the <code>colorkit.num_colors</code> options is set, use it.</p></li>
 <li><p>If R is running inside Positron, use 256^3 (~16.7 million).</p></li>
 <li><p>Otherwise use <code><a href="https://cli.r-lib.org/reference/num_ansi_colors.html" class="external-link">cli::num_ansi_colors()</a></code>.</p></li>
-</ol><p>To visually check whether your console supports 24-bit colors, run the
-following code. If the result is a fairly smooth gradient within each row,
-then you have 24-bit colors. If you instead see color banding (wide, distinct
-steps between colors within a row) or worse (e.g., nothing at all), then you
-have fewer colors available.</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># test: can the console print in 24-bit color?</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">options</span>(<span class="at">colorkit.num_colors =</span> <span class="dv">256</span><span class="sc">^</span><span class="dv">3</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">print_color</span>(<span class="fu">matrix</span>(<span class="fu">rainbow</span>(<span class="dv">240</span>), <span class="at">nrow =</span> <span class="dv">6</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>), <span class="at">width =</span> <span class="dv">1</span>)</span></code></pre><p></p></div>
+</ol><p>Note that if your console supports, say 256^3 colors, but <code>print_color()</code>
+determines that fewer colors are available, say only 256, then
+<code>print_color()</code> will only be able to print 256 colors. However, if
+<code>print_color()</code> determines that more colors are available than your console
+actually supports, then <code>print_color()</code> will not, alas, be able to print
+unsupported colors.</p>
+<p>To visually check whether your console supports 256^3 colors (or only 256
+colors, or only 8), try using <code><a href="console_color_test.html">console_color_test()</a></code>.</p>
 <p>The foreground text color of each cell is determined by <code><a href="bg2fg.html">bg2fg()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="plot_color.html">plot_color()</a></code> for plotting colors in the graphics device.</p></div>
+    <div class="dont-index"><p><code><a href="plot_color.html">plot_color()</a></code> for plotting colors in the graphics device,
+<code><a href="console_color_test.html">console_color_test()</a></code> for visually testing how many colors your R console
+supports.</p></div>
     </div>
 
     <div class="section level2">

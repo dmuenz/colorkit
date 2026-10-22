@@ -70,13 +70,21 @@ print_color(list(
 
 For
 [`print_color()`](https://dmuenz.github.io/colorkit/reference/print_color.md)
-to work best, your console must support 24-bit colors; that way it can
+to work best, your R console must support 24-bit colors; that way it can
 display all 256³ colors in the hex RGB color space (i.e., colors of the
-form `"#rrggbb"`). If your console does not support that many colors,
-then it may (depending on your platform) map each specified color to the
-closest printable color.
+form `"#rrggbb"`). To visually inspect if your console supports 256³
+colors, you can use
+[`console_color_test()`](https://dmuenz.github.io/colorkit/reference/console_color_test.md);
+visit the help page see the output of a successful test for 256³ colors.
+
+If your console does not support that many colors, then it may
+(depending on your platform) map each specified color to the closest
+printable color.
+
 [`print_color()`](https://dmuenz.github.io/colorkit/reference/print_color.md)
-is indebted to the [cli package](https://cli.r-lib.org/) for color
+and
+[`console_color_test()`](https://dmuenz.github.io/colorkit/reference/console_color_test.md)
+are indebted to the [cli package](https://cli.r-lib.org/) for color
 printing in the console.
 
 ## Selecting contrasting foreground colors
@@ -137,10 +145,6 @@ Some use cases for this are:
     up by first converting them to hex strings. See the
     [`col2hex()`](https://dmuenz.github.io/colorkit/reference/col2hex.md)
     help page for an example.
-
-[`col2hex()`](https://dmuenz.github.io/colorkit/reference/col2hex.md) is
-indebted to the [farver package](https://farver.data-imaginist.com/) for
-color conversion.
 
 ## Randomly sampling colors
 
