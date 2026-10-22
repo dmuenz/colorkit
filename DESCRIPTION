@@ -20,6 +20,7 @@ Imports:
     gtable,
     rlang
 Suggests:
+    asciicast,
     RColorBrewer,
     testthat (>= 3.0.0),
     vdiffr
