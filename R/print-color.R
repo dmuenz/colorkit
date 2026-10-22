@@ -14,12 +14,13 @@
 #' @details
 #' Printing in color in the console is handled by the [cli
 #' package][cli-package], and it works best if your console supports 24-bit
-#' colors. `print_color()` determines how many colors are available using the
-#' following mechanism:
+#' colors (i.e., 256^3 colors, also called true color). `print_color()`
+#' determines how many colors are available using the following mechanism:
 #'
-#' 1. If the `colorkit.num_colors` options is set, use it.
-#' 2. If R is running inside Positron, use 256^3 (~16.7 million).
-#' 3. Otherwise use [cli::num_ansi_colors()].
+#' 1. If the `num_colors` parameter is not `NULL`, use it.
+#' 2. If the `colorkit.num_colors` options is set, use it.
+#' 3. If R is running inside Positron, use 256^3 (~16.7 million).
+#' 4. Otherwise use [cli::num_ansi_colors()].
 #'
 #' To visually check whether your console supports 24-bit colors, run the
 #' following code. If the result is a fairly smooth gradient within each row,
@@ -59,6 +60,11 @@
 #'   (the default, meaning use `getOption("max.print")`) or a number >= 0. The
 #'   number will be truncated (`floor(max)`) and then will be honored exactly
 #'   when printing a vector or approximately when printing a matrix.
+#' @param count `TRUE`/`FALSE` for whether to print the total number of colors
+#'   in `col`.
+#' @param num_colors Specify the number of colors supported for printing in the
+#'   R console. Typical values are `NULL`, 256^3, 256, 8, and 1. See the Details
+#'   section for more information.
 #'
 #' @returns Invisibly returns `col`.
 #' @seealso [plot_color()] for plotting colors in the graphics device.
@@ -86,7 +92,7 @@
 #' color_mat <- structure(rainbow(n)[color_idx], dim = dim(mat))
 #' print_color(color_mat, width = 3)
 print_color <- function(col, quote = FALSE, width = NULL, gap = NULL,
-                        max = NULL) {
+                        max = NULL, count = TRUE, num_colors = NULL) {
   rlang::check_bool(quote)
 
   if (!is.null(width) && !isTRUE(is.na(width)) &&
@@ -106,14 +112,24 @@ print_color <- function(col, quote = FALSE, width = NULL, gap = NULL,
   }
   max <- floor(max)
 
-  num_colors <-
-    if (!is.null(getOption("colorkit.num_colors"))) {
-      as.integer(getOption("colorkit.num_colors"))
-    } else if (Sys.getenv("POSITRON") == "1") {
-      2^24
-    } else {
-      cli::num_ansi_colors()
-    }
+  rlang::check_bool(count)
+  rlang::check_number_decimal(
+    num_colors,
+    min = 0,
+    allow_infinite = FALSE,
+    allow_null = TRUE
+  )
+
+  if (is.null(num_colors)) {
+    num_colors <-
+      if (!is.null(getOption("colorkit.num_colors"))) {
+        as.integer(getOption("colorkit.num_colors"))
+      } else if (Sys.getenv("POSITRON") == "1") {
+        256^3
+      } else {
+        cli::num_ansi_colors()
+      }
+  }
 
   old_op <- options(cli.num_colors = num_colors)
   on.exit(options(old_op))
@@ -123,7 +139,14 @@ print_color <- function(col, quote = FALSE, width = NULL, gap = NULL,
 
     do.call(
       paste0("print_color_", if (is.vector(col)) "vector" else "matrix"),
-      list(col = col, quote = quote, width = width, gap = gap, max = max)
+      list(
+        col = col,
+        quote = quote,
+        width = width,
+        gap = gap,
+        max = max,
+        count = count
+      )
     )
   } else if (is.list(col)) {
     for (i in seq_along(col)) {
@@ -143,7 +166,14 @@ print_color <- function(col, quote = FALSE, width = NULL, gap = NULL,
       cli_text_basic(nm)
       do.call(
         paste0("print_color_", if (is.vector(col_i)) "vector" else "matrix"),
-        list(col = col_i, quote = quote, width = width, gap = gap, max = max)
+        list(
+          col = col_i,
+          quote = quote,
+          width = width,
+          gap = gap,
+          max = max,
+          count = count
+        )
       )
     }
   } else {
@@ -155,12 +185,13 @@ print_color <- function(col, quote = FALSE, width = NULL, gap = NULL,
 }
 
 print_color_vector <- function(col, quote = FALSE, width = NULL, gap = NULL,
-                               max = NULL) {
+                               max = NULL, count = TRUE) {
   len_orig <- length(col)
   if (len_orig == 0)
     return(invisible(NULL))
 
-  cli_text_basic("({len_orig} color{?s})")
+  if (count)
+    cli_text_basic("({len_orig} color{?s})")
 
   if (is.null(max)) max <- getOption("max.print")
   col <- col[seq_len(min(len_orig, max))]
@@ -185,7 +216,7 @@ print_color_vector <- function(col, quote = FALSE, width = NULL, gap = NULL,
 }
 
 print_color_matrix <- function(col, quote = FALSE, width = NULL, gap = NULL,
-                               max = NULL) {
+                               max = NULL, count = TRUE) {
   col <- as.matrix(col)
 
   nrow_orig <- nrow(col)
@@ -193,8 +224,10 @@ print_color_matrix <- function(col, quote = FALSE, width = NULL, gap = NULL,
   if (nrow_orig == 0 || ncol_orig == 0)
     return(invisible(NULL))
 
-  cli_text_basic("({nrow_orig} x {ncol_orig} =
-                 {nrow_orig * ncol_orig} color{?s})")
+  if (count) {
+    cli_text_basic("({nrow_orig} x {ncol_orig} =
+                  {nrow_orig * ncol_orig} color{?s})")
+  }
 
   if (is.null(max)) max <- getOption("max.print")
 
