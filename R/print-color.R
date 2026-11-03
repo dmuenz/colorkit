@@ -160,8 +160,9 @@ print_color <- function(col, quote = FALSE, width = NULL, gap = NULL,
       list_name <- names(col[i])
       nm <-
         if (is.null(list_name) || isTRUE(nchar(list_name) == 0)) "[[{i}]]"
-        else if (grepl("\\s", list_name)) "$`{list_name}`"
-        else "${list_name}"
+        else if (is.na(list_name)) "$<NA>"
+        else if (list_name == make.names(list_name)) "${list_name}"
+        else "$`{list_name}`"
 
       cli_text_basic(nm)
       do.call(
