@@ -17,7 +17,8 @@
 #'
 #' \Sexpr[results=rd,stage=render]{
 #'   if (requireNamespace("pkgdown", quietly = TRUE) && pkgdown::in_pkgdown()) {
-#'     ""
+#'     "\\\\out{<p>The Examples section below shows a successful test for 256^3
+#'     colors.</p>}"
 #'   } else {
 #'     "\\\\out{<p>
 #'     <a href='https://dmuenz.github.io/colorkit/reference/console_color_test.html'>
