@@ -95,31 +95,19 @@ print_color <- function(col, quote = FALSE, width = NULL, gap = NULL,
                         max = NULL, count = TRUE, num_colors = NULL) {
   rlang::check_bool(quote)
 
-  if (!is.null(width) && !isTRUE(is.na(width)) &&
-      !is_scalar_num(width, min_in = 1)) {
-    rlang::stop_input_type(width, "`NULL`, `NA`, or a number >= 1")
-  }
-  if (is_scalar_num(width)) width <- floor(width)
+  check_number(width, min_in = 1, allow_na = TRUE, allow_null = TRUE)
+  if (is_number(width)) width <- floor(width)
 
-  if (!is.null(gap) && !is_scalar_num(gap, min_in = 0)) {
-    rlang::stop_input_type(gap, "`NULL` or a number >= 0")
-  }
-  if (is_scalar_num(gap)) gap <- floor(gap)
+  check_number(gap, min_in = 0, allow_null = TRUE)
+  if (is_number(gap)) gap <- floor(gap)
 
+  check_number(max, min_in = 0, allow_null = TRUE)
   if (is.null(max)) max <- getOption("max.print")
-  if (!is_scalar_num(max, min_in = 0)) {
-    rlang::stop_input_type(max, "`NULL` or a number >= 0")
-  }
   max <- floor(max)
 
   rlang::check_bool(count)
-  rlang::check_number_decimal(
-    num_colors,
-    min = 0,
-    allow_infinite = FALSE,
-    allow_null = TRUE
-  )
 
+  check_number(num_colors, min_in = 1, allow_null = TRUE)
   if (is.null(num_colors)) {
     num_colors <-
       if (!is.null(getOption("colorkit.num_colors"))) {

@@ -151,7 +151,7 @@
       print_color("red", width = 0)
     Condition
       Error in `print_color()`:
-      ! `width` must be `NULL`, `NA`, or a number >= 1, not the number 0.
+      ! `width` must be a number >= 1, `NA`, or `NULL`, not the number 0.
 
 ---
 
@@ -159,7 +159,7 @@
       print_color("red", width = rep(1, 2))
     Condition
       Error in `print_color()`:
-      ! `width` must be `NULL`, `NA`, or a number >= 1, not a double vector.
+      ! `width` must be a number >= 1, `NA`, or `NULL`, not a double vector.
 
 ---
 
@@ -167,7 +167,7 @@
       print_color("red", gap = -1)
     Condition
       Error in `print_color()`:
-      ! `gap` must be `NULL` or a number >= 0, not the number -1.
+      ! `gap` must be a number >= 0 or `NULL`, not the number -1.
 
 ---
 
@@ -175,7 +175,7 @@
       print_color("red", gap = rep(1, 2))
     Condition
       Error in `print_color()`:
-      ! `gap` must be `NULL` or a number >= 0, not a double vector.
+      ! `gap` must be a number >= 0 or `NULL`, not a double vector.
 
 ---
 
@@ -183,7 +183,7 @@
       print_color("red", max = -1)
     Condition
       Error in `print_color()`:
-      ! `max` must be `NULL` or a number >= 0, not the number -1.
+      ! `max` must be a number >= 0 or `NULL`, not the number -1.
 
 ---
 
@@ -191,7 +191,7 @@
       print_color("red", max = rep(1, 2))
     Condition
       Error in `print_color()`:
-      ! `max` must be `NULL` or a number >= 0, not a double vector.
+      ! `max` must be a number >= 0 or `NULL`, not a double vector.
 
 ---
 

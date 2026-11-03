@@ -59,7 +59,7 @@ plot_color <- function(col, label = TRUE, index = TRUE,
   rlang::check_bool(label)
   rlang::check_bool(index)
   check_color(border, req_len = 1, allow_null = TRUE)
-  rlang::check_number_decimal(cex_label, min = 0, allow_infinite = FALSE)
+  check_number(cex_label, min_in = 0)
 
   if ((is.vector(col) && is.atomic(col)) || is.matrix(col)) {
     check_color(col)

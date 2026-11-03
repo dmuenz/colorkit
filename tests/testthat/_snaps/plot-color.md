@@ -76,7 +76,7 @@
       plot_color("red", cex_label = sum)
     Condition
       Error in `plot_color()`:
-      ! `cex_label` must be a number, not a primitive function.
+      ! `cex_label` must be a number >= 0, not a primitive function.
 
 ---
 
@@ -84,7 +84,7 @@
       plot_color("red", cex_label = rep(1, 2))
     Condition
       Error in `plot_color()`:
-      ! `cex_label` must be a number, not a double vector.
+      ! `cex_label` must be a number >= 0, not a double vector.
 
 ---
 
@@ -92,5 +92,5 @@
       plot_color("red", cex_label = Inf)
     Condition
       Error in `plot_color()`:
-      ! `cex_label` must be a number, not `Inf`.
+      ! `cex_label` must be a number >= 0, not `Inf`.
 

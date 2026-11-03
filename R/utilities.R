@@ -3,13 +3,55 @@ is_bool <- function(x) {
   is.logical(x) && length(x) == 1L && !is.na(x)
 }
 
-# Report whether `x` is a non-missing scalar number
-is_scalar_num <- function(x, min_in, min_ex, max_in, max_ex) {
+# Report whether `x` is a number, optionally with bounds
+is_number <- function(x,
+                      min_in = NULL, min_ex = NULL,
+                      max_in = NULL, max_ex = NULL) {
+
+  if (!is.null(min_in) && !is.null(min_ex))
+    cli::cli_abort("Cannot use both {.arg min_in} and {.arg min_ex}.")
+  if (!is.null(max_in) && !is.null(max_ex))
+    cli::cli_abort("Cannot use both {.arg max_in} and {.arg max_ex}.")
+
   is.numeric(x) && length(x) == 1L && !is.na(x) && is.finite(x) &&
-    (missing(min_in) || x >= min_in) &&
-    (missing(min_ex) || x >  min_ex) &&
-    (missing(max_in) || x <= max_in) &&
-    (missing(max_ex) || x <  max_ex)
+    (is.null(min_in) || x >= min_in) &&
+    (is.null(min_ex) || x >  min_ex) &&
+    (is.null(max_in) || x <= max_in) &&
+    (is.null(max_ex) || x <  max_ex)
+}
+
+# Check that an argument is a number, optionally with bounds, and produce
+# friendly error messages otherwise
+check_number <- function(x,
+                         min_in = NULL, min_ex = NULL,
+                         max_in = NULL, max_ex = NULL,
+                         allow_na = FALSE, allow_null = FALSE,
+                         arg = rlang::caller_arg(x),
+                         call = rlang::caller_env()) {
+  force(arg)
+
+  if (is_number(x, min_in = min_in, min_ex = min_ex,
+                   max_in = max_in, max_ex = max_ex) ||
+      allow_null && is.null(x) ||
+      allow_na && length(x) == 1L && is.na(x)) {
+    return(invisible(NULL))
+  }
+
+  rng <- character(0)
+  if (!is.null(min_in)) rng <- paste(">=", min_in)
+  if (!is.null(min_ex)) rng <- c(rng, paste(">",  min_ex))
+  if (!is.null(max_in)) rng <- c(rng, paste("<=", max_in))
+  if (!is.null(max_ex)) rng <- c(rng, paste("<",  max_ex))
+  rng <- paste(rng, collapse = " and ")
+
+  rlang::stop_input_type(
+    x,
+    paste("a number", rng),
+    allow_na = allow_na,
+    allow_null = allow_null,
+    arg = arg,
+    call = call
+  )
 }
 
 # Simple wrapper around farver::decode_colour() for converting a color
@@ -75,6 +117,8 @@ inherit_shape_and_class <- function(col, original) {
   col
 }
 
+# Check that an argument is a color (or colors), and produce friendly error
+# messages otherwise
 check_color <- function(col, req_len = NULL, allow_null = FALSE,
                         arg = rlang::caller_arg(col),
                         call = rlang::caller_env()) {

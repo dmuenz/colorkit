@@ -32,18 +32,15 @@
 #' rand_color(8, hex = FALSE)
 #' rand_color(8, hex = 0.5)
 rand_color <- function(n = 1, hex = 0.5, alpha = FALSE) {
-  if (!is_scalar_num(n, min_in = 0)) {
-    cli::cli_abort("{.arg n} must be a number >= 0")
-  }
-
+  check_number(n, min_in = 0)
   n <- floor(n)
 
   if (n == 0)
     return(character(0))
 
-  if (!is_bool(hex) && !is_scalar_num(hex, min_in = 0, max_in = 1)) {
-    cli::cli_abort("{.arg hex} must be either TRUE, FALSE, or a number between
-                   0 and 1.")
+  if (!is_bool(hex) && !is_number(hex, min_in = 0, max_in = 1)) {
+    rlang::stop_input_type(hex,
+                           "either `TRUE`, `FALSE`, or a number >= 0 and <= 1")
   }
 
   rlang::check_bool(alpha)
