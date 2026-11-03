@@ -102,13 +102,13 @@ print_color <- function(col, quote = FALSE, width = NULL, gap = NULL,
   if (is_scalar_num(width)) width <- floor(width)
 
   if (!is.null(gap) && !is_scalar_num(gap, min_in = 0)) {
-    rlang::stop_input_type(gap, "`NULL` or a non-negative number")
+    rlang::stop_input_type(gap, "`NULL` or a number >= 0")
   }
   if (is_scalar_num(gap)) gap <- floor(gap)
 
   if (is.null(max)) max <- getOption("max.print")
   if (!is_scalar_num(max, min_in = 0)) {
-    rlang::stop_input_type(max, "`NULL` or a non-negative number")
+    rlang::stop_input_type(max, "`NULL` or a number >= 0")
   }
   max <- floor(max)
 
