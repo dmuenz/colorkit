@@ -75,7 +75,9 @@ display all 256³ colors in the hex RGB color space (i.e., colors of the
 form `"#rrggbb"`). To visually inspect if your console supports 256³
 colors, you can use
 [`console_color_test()`](https://dmuenz.github.io/colorkit/reference/console_color_test.md);
-visit the help page see the output of a successful test for 256³ colors.
+visit [the online help
+page](https://dmuenz.github.io/colorkit/reference/console_color_test.html)
+to see the output of a successful test for 256³ colors.
 
 If your console does not support that many colors, then it may
 (depending on your platform) map each specified color to the closest
