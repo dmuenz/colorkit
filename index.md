@@ -18,7 +18,7 @@ You can install the development version of colorkit from GitHub like so:
 ``` r
 
 # install.packages("pak")
-pak::pkg_install("dmuenz/colorkit")
+pak::pak("dmuenz/colorkit")
 ```
 
 ## Examples
