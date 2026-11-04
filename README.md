@@ -7,6 +7,9 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/dmuenz/colorkit/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dmuenz/colorkit/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/dmuenz/colorkit/graph/badge.svg)](https://app.codecov.io/gh/dmuenz/colorkit)
 <!-- badges: end -->
 
 colorkit provides several utility functions for working with colors in
@@ -26,7 +29,7 @@ You can install the development version of colorkit from GitHub like so:
 
 ``` r
 # install.packages("pak")
-pak::pkg_install("dmuenz/colorkit")
+pak::pak("dmuenz/colorkit")
 ```
 
 ## Examples
