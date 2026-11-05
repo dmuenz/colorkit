@@ -21,10 +21,19 @@ test_that("print_color works", {
       stats::setNames(c("", "syntactic", "non-syntactic", NA)),
     num_colors = 256^3
   ))
+
+  reds1000 <- rep("red", 1000)
+  expect_snapshot(print_color(reds1000, max = 10, num_colors = 256^3))
+  expect_snapshot(print_color(
+    matrix(reds1000, ncol = 50),
+    max = 100,
+    num_colors = 256^3
+  ))
 })
 
 test_that("print_color errors correctly", {
   expect_snapshot(print_color("waka"), error = TRUE)
+  expect_snapshot(print_color("#oops"), error = TRUE)
   expect_snapshot(print_color(sum), error = TRUE)
   expect_snapshot(print_color(list(sum)), error = TRUE)
 
