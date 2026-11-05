@@ -15,6 +15,8 @@ gradient.
 - If the gradients for 8 ANSI colors show 6 distinct rainbow colors in
   addition to black and white, then the console supports 8 colors.
 
+The Examples section below shows a successful test for 256^3 colors.
+
 ## Usage
 
 ``` r
