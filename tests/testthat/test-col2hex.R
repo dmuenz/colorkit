@@ -18,6 +18,11 @@ test_that("col2hex works", {
   rm_a <- as.raster(m_a)
   rm_e <- as.raster(m_e)
   expect_equal(col2hex(rm_a), rm_e)
+
+  # colors_lookup_table() is called only by .onLoad(), so call it here just for
+  # coverage credit. Note that the above tests prove that the function works,
+  # specifically since "red" is correctly converted to hex.
+  colors_lookup_table()
 })
 
 test_that("col2hex errors correctly", {
