@@ -49,7 +49,7 @@ gradient_test <- function(num_colors) {
     "{num_colors_label} {color_type} color test"
   ))
 
-  double_rainbow <- rep(rainbow(64), times = 2)
+  double_rainbow <- rep(grDevices::rainbow(64), times = 2)
   cat("Rainbow:   ")
   print_color(
     double_rainbow[65 - 6 + 1:64],
@@ -60,7 +60,7 @@ gradient_test <- function(num_colors) {
 
   cat("Greyscale: ")
   print_color(
-    grey(seq(0, 1, length.out = 64)),
+    grDevices::grey(seq(0, 1, length.out = 64)),
     width = 1,
     count = FALSE,
     num_colors = num_colors
